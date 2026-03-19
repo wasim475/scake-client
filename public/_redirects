@@ -1,0 +1,3 @@
+/google*.html /google*.html 200
+/ads.txt /ads.txt 200
+/* /index.html 200
