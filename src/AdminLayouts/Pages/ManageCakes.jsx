@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Plus, Search, Edit2, Trash2, X, Check, UploadCloud, ChevronDown } from "lucide-react";
+import AddCakeModal from './Modal/AddCakeModal';
 
-// ─── Initial data (replace with API calls) ───────────────────────────────────
+// ─── AddCakeModal import করো ──────────────────────────────
+// import AddCakeModal from "../components/AddCakeModal";
 
 const INITIAL_CAKES = [
   { id: 1, emoji: "🎂", name: "Classic Vanilla Dream",  category: "Birthday",   price: 850,  stock: true,  rating: 4.9, orders: 84  },
@@ -43,9 +45,9 @@ const Select = ({ label, children, ...props }) => (
   </div>
 );
 
-// ─── Cake Form Modal ──────────────────────────────────────────────────────────
+// ─── Edit Modal (stays here) ──────────────────────────────────────────────────
 
-const CakeModal = ({ cake, onSave, onClose }) => {
+const EditCakeModal = ({ cake, onSave, onClose }) => {
   const [form, setForm] = useState(cake ?? EMPTY_FORM);
 
   const set = (key) => (e) =>
@@ -62,11 +64,10 @@ const CakeModal = ({ cake, onSave, onClose }) => {
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
       <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
 
-        {/* Header */}
         <div className="sticky top-0 bg-white flex items-center justify-between px-6 py-4 border-b border-gray-100 rounded-t-2xl z-10">
           <h2 className="text-base font-bold text-[#3D1C2C]"
             style={{ fontFamily: "'Playfair Display', serif" }}>
-            {cake ? "Edit Cake" : "Add New Cake"}
+            Edit Cake
           </h2>
           <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-gray-100 text-[#8B7070] transition-colors">
             <X size={16} />
@@ -74,7 +75,6 @@ const CakeModal = ({ cake, onSave, onClose }) => {
         </div>
 
         <div className="p-6 space-y-4">
-          {/* Emoji picker row */}
           <div>
             <label className="block text-xs font-semibold text-[#8B7070] uppercase tracking-wider mb-1.5">
               Cake Emoji
@@ -117,14 +117,12 @@ const CakeModal = ({ cake, onSave, onClose }) => {
             />
           </div>
 
-          {/* Image upload placeholder */}
           <div className="border-2 border-dashed border-gray-200 rounded-xl p-6 flex flex-col items-center gap-2 hover:border-[#E8627A]/40 transition-colors cursor-pointer">
             <UploadCloud size={22} className="text-gray-400" />
             <p className="text-xs text-[#8B7070]">Click to upload cake image</p>
             <p className="text-[10px] text-gray-400">JPG, PNG, WEBP · Max 5MB</p>
           </div>
 
-          {/* Stock toggle */}
           <label className="flex items-center justify-between p-4 bg-gray-50 rounded-xl cursor-pointer">
             <div>
               <p className="text-sm font-semibold text-[#2A1A1A]">In Stock</p>
@@ -139,13 +137,12 @@ const CakeModal = ({ cake, onSave, onClose }) => {
           </label>
         </div>
 
-        {/* Footer */}
         <div className="sticky bottom-0 bg-white px-6 py-4 border-t border-gray-100 flex gap-3 rounded-b-2xl">
           <button onClick={onClose} className="flex-1 py-2.5 text-sm font-semibold text-[#8B7070] border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors">
             Cancel
           </button>
           <button onClick={handleSave} className="flex-1 py-2.5 text-sm font-bold text-white bg-[#E8627A] hover:bg-[#C04060] rounded-xl transition-colors active:scale-95">
-            {cake ? "Save Changes" : "Add Cake"}
+            Save Changes
           </button>
         </div>
       </div>
@@ -153,7 +150,7 @@ const CakeModal = ({ cake, onSave, onClose }) => {
   );
 };
 
-// ─── Delete Confirm ───────────────────────────────────────────────────────────
+// ─── Delete Confirm (stays here) ─────────────────────────────────────────────
 
 const DeleteConfirm = ({ cake, onConfirm, onClose }) => (
   <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -182,10 +179,11 @@ const DeleteConfirm = ({ cake, onConfirm, onClose }) => (
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 const ManageCakes = () => {
-  const [cakes,   setCakes]   = useState(INITIAL_CAKES);
-  const [search,  setSearch]  = useState("");
+  const [cakes,     setCakes]     = useState(INITIAL_CAKES);
+  const [search,    setSearch]    = useState("");
   const [catFilter, setCatFilter] = useState("All");
-  const [modal,   setModal]   = useState(null);  // null | { type: "add"|"edit"|"delete", cake? }
+  const [modal,     setModal]     = useState(null);
+  // modal: null | { type: "add" } | { type: "edit", cake } | { type: "delete", cake }
 
   const filtered = cakes.filter((c) => {
     const matchCat  = catFilter === "All" || c.category === catFilter;
@@ -261,7 +259,6 @@ const ManageCakes = () => {
             <tbody className="divide-y divide-gray-50">
               {filtered.map((cake) => (
                 <tr key={cake.id} className="hover:bg-gray-50/50 transition-colors group">
-                  {/* Cake */}
                   <td className="px-4 py-3.5">
                     <div className="flex items-center gap-3">
                       <div className="w-9 h-9 rounded-xl bg-rose-50 flex items-center justify-center text-xl shrink-0">
@@ -270,33 +267,27 @@ const ManageCakes = () => {
                       <span className="font-semibold text-[#2A1A1A] whitespace-nowrap">{cake.name}</span>
                     </div>
                   </td>
-                  {/* Category */}
                   <td className="px-4 py-3.5">
                     <span className="px-2.5 py-1 bg-[#FFF8F0] text-[#C9954C] text-[10px] font-bold rounded-full">
                       {cake.category}
                     </span>
                   </td>
-                  {/* Price */}
                   <td className="px-4 py-3.5 font-bold text-[#E8627A]">
                     ৳{cake.price.toLocaleString()}
                   </td>
-                  {/* Rating */}
                   <td className="px-4 py-3.5 text-amber-500 font-semibold text-xs">
                     ★ {cake.rating}
                   </td>
-                  {/* Orders */}
                   <td className="px-4 py-3.5 text-[#8B7070] text-xs">{cake.orders}</td>
-                  {/* Stock toggle */}
                   <td className="px-4 py-3.5">
                     <button
                       onClick={() => toggleStock(cake.id)}
-                      className={`w-10 h-5.5 rounded-full relative transition-colors ${cake.stock ? "bg-green-400" : "bg-gray-300"}`}
+                      className={`w-10 rounded-full relative transition-colors ${cake.stock ? "bg-green-400" : "bg-gray-300"}`}
                       style={{ height: "22px" }}
                     >
                       <span className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${cake.stock ? "translate-x-5" : "translate-x-0.5"}`} />
                     </button>
                   </td>
-                  {/* Actions */}
                   <td className="px-4 py-3.5">
                     <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                       <button
@@ -329,10 +320,35 @@ const ManageCakes = () => {
         )}
       </div>
 
-      {/* Modals */}
-      {modal?.type === "add"    && <CakeModal                      onSave={handleSave}           onClose={() => setModal(null)} />}
-      {modal?.type === "edit"   && <CakeModal cake={modal.cake}    onSave={handleSave}           onClose={() => setModal(null)} />}
-      {modal?.type === "delete" && <DeleteConfirm cake={modal.cake} onConfirm={handleDelete}     onClose={() => setModal(null)} />}
+      {/* ── ADD CAKE MODAL ───────────────────────────────────────────────────── */}
+          
+
+          {modal?.type === "add" && (
+            <AddCakeModal
+              onSave={handleSave}
+              onClose={() => setModal(null)}
+            />
+          )}
+      {/* ─────────────────────────────────────────────────────────────────────── */}
+
+      {/* Edit modal  */}
+      {modal?.type === "edit" && (
+        <EditCakeModal
+          cake={modal.cake}
+          onSave={handleSave}
+          onClose={() => setModal(null)}
+        />
+      )}
+
+      {/* Delete modal */}
+      {modal?.type === "delete" && (
+        <DeleteConfirm
+          cake={modal.cake}
+          onConfirm={handleDelete}
+          onClose={() => setModal(null)}
+        />
+      )}
+
     </div>
   );
 };
