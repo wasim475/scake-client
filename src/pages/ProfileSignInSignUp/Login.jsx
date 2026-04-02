@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Eye, EyeOff, Mail, Lock, ArrowRight, AlertCircle } from "lucide-react";
 import { Auth } from "../../Provider/AuthProvider";
+import LogoImage from '../../components/LogoImage';
 
 const LoginPage = () => {
   const { signIn, googleSignIn, facebookSignIn } = useContext(Auth);
@@ -122,13 +123,13 @@ const LoginPage = () => {
           <div className="flex flex-col items-center gap-2">
             <Link to="/" className="flex items-center gap-2">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#E8627A] to-[#C04060] flex items-center justify-center text-xl shadow-md">
-                🎂
+                <LogoImage/>
               </div>
               <span
                 className="text-xl font-bold text-[#3D1C2C]"
                 style={{ fontFamily: "'Playfair Display', serif" }}
               >
-                CakeHaus
+                Sanzida's Cake
               </span>
             </Link>
             <h1

@@ -5,6 +5,7 @@ import {
   ArrowRight, AlertCircle, CheckCircle2,
 } from "lucide-react";
 import { Auth } from "../../Provider/AuthProvider";
+import LogoImage from '../../components/LogoImage';
 
 // ─── Password strength checker ────────────────────────────────────────────────
 
@@ -111,7 +112,7 @@ const SignupPage = () => {
 
         <div className="relative z-10 text-center space-y-6 max-w-sm">
           <div className="w-20 h-20 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center mx-auto text-5xl">
-            🎂
+            <LogoImage/>
           </div>
 
           <div>
@@ -119,7 +120,7 @@ const SignupPage = () => {
               className="text-3xl font-bold text-white"
               style={{ fontFamily: "'Playfair Display', serif" }}
             >
-              Join CakeHaus
+              Join Sanzida's Cake
             </h2>
             <p className="text-white/50 mt-2 text-sm leading-relaxed">
               Create your free account and get 20% off your very first order!
@@ -152,13 +153,13 @@ const SignupPage = () => {
           <div className="flex flex-col items-center gap-2">
             <Link to="/" className="flex items-center gap-2">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#E8627A] to-[#C04060] flex items-center justify-center text-xl shadow-md">
-                🎂
+                <LogoImage/>
               </div>
               <span
                 className="text-xl font-bold text-[#3D1C2C]"
                 style={{ fontFamily: "'Playfair Display', serif" }}
               >
-                CakeHaus
+                Sanzida's Cake
               </span>
             </Link>
             <h1
@@ -229,7 +230,7 @@ const SignupPage = () => {
                   value={form.name}
                   onChange={set("name")}
                   required
-                  placeholder="Rina Ahmed"
+                  placeholder="Sanzida Mithi"
                   className="w-full pl-10 pr-4 py-3 text-sm bg-[#FFF8F0] border border-gray-200 rounded-xl outline-none focus:border-[#E8627A] focus:ring-2 focus:ring-[#E8627A]/10 transition-all placeholder:text-gray-300 text-[#2A1A1A]"
                 />
               </div>

@@ -41,6 +41,7 @@ const AddCakeModal = ({ onSave, onClose }) => {
   const handleSave = () => {
     if (!form.name.trim() || !form.price) return;
     onSave({ ...form, id: Date.now(), price: Number(form.price) });
+    console.log(form)
     onClose();
   };
 

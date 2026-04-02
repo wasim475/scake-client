@@ -53,7 +53,7 @@ const DashboardHome = () => (
         style={{ fontFamily: "'Playfair Display', serif" }}>
         {getGreeting()}, Mithi 👋
       </h1>
-      <p className="text-sm text-[#8B7070] mt-0.5">Here's what's happening with CakeHaus today.</p>
+      <p className="text-sm text-[#8B7070] mt-0.5">Here's what's happening with Sanzida's Cake today.</p>
     </div>
 
     {/* ── STAT CARDS ── */}
