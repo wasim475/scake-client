@@ -28,7 +28,7 @@ export default function HeroSection() {
     setTimeout(() => {
       setCurrent(index);
       setAnimating(false);
-    }, 300);
+    }, 700);
   };
 
   const prev = () => goTo((current - 1 + slides.length) % slides.length);

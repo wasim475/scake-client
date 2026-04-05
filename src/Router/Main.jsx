@@ -20,6 +20,7 @@ import ManageOrders from '../AdminLayouts/Pages/ManageOrders.jsx';
 import { ManageUsers, ManageCoupons, ManageReviews } from "../AdminLayouts/Pages/AdminPages.jsx";
 import ManageCustomOrders from '../AdminLayouts/Pages/ManageCustomOrder.jsx';
 import LoadingPage from '../components/Loading.jsx';
+import TestPage from '../pages/TestPage/TestPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
         {
             path:'/',
             element: <Home/>
+        },
+        {
+            path:'/test',
+            element: <TestPage/>
         },
         {
             path:'/shop',

@@ -1,3 +1,5 @@
+import { ChevronDown } from 'lucide-react';
+
 export const Input = ({ label, ...props }) => (
   <div>
     {label && <label className="block text-xs font-semibold text-[#8B7070] uppercase tracking-wider mb-1.5">{label}</label>}
